@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState} from 'react';
 import { View, Image, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { appStyles } from '../../../services/utilities/appStyles';
 import { oylImage, backgroundImage } from '../../../services/utilities/assets/assets';
+import { DotIndicator } from 'react-native-indicators';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 const Splash = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const checkUserAuthentication = async () => {
       try {
@@ -14,7 +18,6 @@ const Splash = ({ navigation }) => {
         return false;
       }
     };
-
     checkUserAuthentication().then(isLoggedIn => {
       if (isLoggedIn) {
         navigation.navigate('Appnavigation', { screen: 'Home' });
@@ -29,6 +32,9 @@ const Splash = ({ navigation }) => {
       <View style={appStyles.splash}>
         <View style={appStyles.splashlogo}>
           <Image style={appStyles.Image2} source={oylImage.Oyl} />
+          <View style={{marginTop:responsiveHeight(5)}}>
+          <DotIndicator color="#FFFFC8" size={15} />
+          </View>
         </View>
       </View>
     </ImageBackground>
