@@ -7,6 +7,7 @@ import { InputField } from '../../../components/EditField/EditField';
 import Header from '../../../../src/components/Header/header';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast';
 import { backgroundImage, calendarimage } from '../../../../src/services/utilities/assets/assets';
 
 const SetProfile = ({ navigation }) => {
@@ -36,7 +37,7 @@ const SetProfile = ({ navigation }) => {
         }
         const user = auth().currentUser;
         if (!user) {
-            Alert.alert('Authentication Error', 'User not authenticated.');
+            Toast.show('User not authenticated', Toast.SHORT,)
             return;
         }
         const uid = user.uid;
@@ -56,12 +57,12 @@ const SetProfile = ({ navigation }) => {
                 uid: uid,
             })
             .then(() => {
-                Alert.alert('Profile Updated', 'Your profile information has been successfully stored.');
+                Toast.show('Your profile information has been successfully stored.', Toast.SHORT,)
                 navigation.navigate('Appnavigation', { screen: 'Home' });
             })
             .catch(error => {
                 console.error(error);
-                Alert.alert('Error', 'An error occurred while saving your profile information.');
+                Toast.show('An error occurred while saving your profile information', Toast.SHORT,)
             });
     };
 
@@ -69,7 +70,7 @@ const SetProfile = ({ navigation }) => {
 
     const validateFields = () => {
         if (!fname || !lname || !birthday || !vmake || !vmodel || !vyear || !vcolor || !vmileage) {
-            Alert.alert('Missing Information', 'Please fill in all fields.');
+            Toast.show('Please fill all fields', Toast.SHORT,)
             return false;
         }
 

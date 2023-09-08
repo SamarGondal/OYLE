@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StatusBar, ScrollView, KeyboardAvoidingView, TouchableHighlight, Alert, Platform } from 'react-native';
+import { View, Text, Image, StatusBar, ScrollView, KeyboardAvoidingView, TouchableHighlight, Platform } from 'react-native';
 import { appStyles } from '../../../services/utilities/appStyles';
 import { DateCard, DateCardInput } from '../../../components/CardView/DateCard';
 import { responsiveWidth } from 'react-native-responsive-dimensions';
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import { Inputfield1 } from '../../../../src/components/EditField/EditField';
 import LinearGradient from 'react-native-linear-gradient';
+import Toast from 'react-native-simple-toast';
 import { backgroundImage, dotimage, dropimage } from '../../../../src/services/utilities/assets/assets';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -63,7 +64,7 @@ function Home({ navigation }) {
     if (/^\d+$/.test(text) && parseInt(text) <= 12) {
       setInputValue(text);
     } else {
-      Alert.alert('Invalid Input', 'Please enter a valid hour (1-12).');
+      Toast.show('Please enter a valid hour (1-12)', Toast.SHORT,)
       setInputValue('');
     }
   };
@@ -71,7 +72,7 @@ function Home({ navigation }) {
     if (/^\d+$/.test(text) && parseInt(text) <= 59) {
       setInputValue2(text);
     } else {
-      Alert.alert('Invalid Input', 'Please enter a valid minute (0-59).');
+      Toast.show('Please enter a valid minute (0-59)', Toast.SHORT,)
       setInputValue2('');
     }
   };
@@ -102,13 +103,13 @@ function Home({ navigation }) {
       const selectedData = {
         dateInfo,
         time: `${inputValue || '00'}:${inputValue2 || '00'} ${activeButton || 'AM'}`,
-        location: locationValue, 
+        location: locationValue,
         oilType: oilValue,
       };
       storeDataInFirestore(selectedData);
       navigation.navigate('VehicleInfo');
     } else {
-      Alert.alert('Incomplete Data', 'Please fill in all required fields.');
+      Toast.show('Please fill in all required fields', Toast.SHORT,)
     }
   };
   const getDaysInMonth = (year, month) => {
@@ -140,11 +141,11 @@ function Home({ navigation }) {
       userDocRef
         .set(selectedData)
         .then(() => {
-          Alert.alert('Success', 'Data saved to Firestore.');
+          Toast.show('Data saved to Firestore', Toast.SHORT,)
         })
         .catch((error) => {
           console.error(error);
-          Alert.alert('Error', 'An error occurred while saving data to Firestore.');
+          Toast.show('An error occurred while saving data to Firestore', Toast.SHORT,)
         });
     }
   };

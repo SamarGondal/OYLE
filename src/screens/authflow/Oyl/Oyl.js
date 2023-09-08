@@ -1,5 +1,5 @@
-import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, StatusBar, Alert } from 'react-native'
-import React,{useEffect} from 'react'
+import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, StatusBar } from 'react-native'
+import React, { useEffect } from 'react'
 import { appStyles } from '../../../../src/services/utilities/appStyles'
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../../components/CustomButton/CustomButton';
@@ -7,6 +7,7 @@ import { InputField } from '../../../components/EditField/EditField';
 import { oylImage, backgroundImage } from '../../../../src/services/utilities/assets/assets'
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
 import { useState } from 'react'
 
 
@@ -32,24 +33,24 @@ const Oyl = ({ navigation }) => {
 
     const userSignin = () => {
         if (!email || !password) {
-            Alert.alert('Please enter both email and password.');
+            Toast.show('Please enter email and password.', Toast.SHORT,)
             return;
         }
         auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
                 AsyncStorage.setItem('userLoggedIn', 'true');
-                Alert.alert('User logged in successfully');
+                Toast.show('User logged in successfully', Toast.SHORT,)
                 navigation.navigate('Appnavigation', { screen: 'Home' });
             })
             .catch(error => {
                 if (error.code === 'auth/invalid-email' || error.code === 'auth/user-not-found') {
-                    Alert.alert('Account not found');
+                    Toast.show('Account not found', Toast.SHORT,)
                 } else if (error.code === 'auth/wrong-password') {
-                    Alert.alert('Invalid Password');
+                    Toast.show('Invalid Password', Toast.SHORT,)
                 } else {
                     console.log(error);
-                    Alert.alert('An error occurred. Please try again later.');
+                    Toast.show('An error occurred. Please try again later.', Toast.SHORT,)
                 }
             });
     };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, StatusBar, Alert, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
+import { View, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { appStyles } from '../../../../src/services/utilities/appStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../../components/CustomButton/CustomButton';
@@ -7,9 +7,15 @@ import { InputField } from '../../../components/EditField/EditField';
 import { backicon1image, calendarimage, backgroundImage, homeimage, accountimage } from '../../../../src/services/utilities/assets/assets';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast';
 
 const EditProfile = ({ navigation }) => {
   const handleButtonPress = () => {
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
     updateUserDataInFirestore();
   };
 
@@ -22,6 +28,8 @@ const EditProfile = ({ navigation }) => {
   const [userVyear, setUserVyear] = useState('');
   const [userVcolor, setUserVcolor] = useState('');
   const [userVmileage, setUserVmileage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const user = auth().currentUser;
     if (user) {
@@ -56,12 +64,14 @@ const EditProfile = ({ navigation }) => {
 
   const updateUserDataInFirestore = () => {
     if (!validateFields()) {
+      setIsLoading(false);
       return;
     }
 
     const user = auth().currentUser;
     if (!user) {
-      Alert.alert('Authentication Error', 'User not authenticated.');
+      setIsLoading(false);
+      Toast.show('User not authenticated', Toast.SHORT,)
       return;
     }
 
@@ -80,18 +90,20 @@ const EditProfile = ({ navigation }) => {
         vmileage: userVmileage,
       })
       .then(() => {
-        Alert.alert('Profile Updated', 'Your profile information has been successfully updated.');
+        setIsLoading(false);
+        Toast.show('Your profile information has been successfully updated', Toast.SHORT,)
         navigation.navigate('Home');
       })
       .catch((error) => {
+        setIsLoading(false);
         console.error(error);
-        Alert.alert('Error', 'An error occurred while updating your profile information.');
+        Toast.show('An error occurred while updating your profile information', Toast.SHORT,)
       });
   };
 
   const validateFields = () => {
     if (!userFirstName || !userLastName || !userBirthday || !userVmake || !userVmodel || !userVyear || !userVcolor || !userVmileage) {
-      Alert.alert('Missing Information', 'Please fill in all fields.');
+      Toast.show('Please fill in all fields', Toast.SHORT,)
       return false;
     }
     return true;
@@ -107,6 +119,14 @@ const EditProfile = ({ navigation }) => {
       navigation.reset({
         index: 0,
         routes: [{ name: 'Appnavigation', params: { screen: 'ExtraScreen' } }],
+      })
+    )
+  };
+  const home = () => {
+    return (
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Appnavigation', params: { screen: 'Home' } }],
       })
     )
   };
@@ -188,22 +208,28 @@ const EditProfile = ({ navigation }) => {
                 value={userVmileage}
               />
               <View style={appStyles.touchable24}>
-                <LinearGradient
-                  colors={['#FFFFFF', '#FFFFCC']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={appStyles.button22}>
-                  <CustomButton
-                    onPress={handleButtonPress}
-                    title="SAVE CHANGES"
-                    style={appStyles.buttonText2}
-                  />
-                </LinearGradient>
+                {isLoading ? (
+                  <ActivityIndicator size="large" color="#0000ff" />
+                ) : (
+                  <LinearGradient
+                    colors={['#FFFFFF', '#FFFFCC']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={appStyles.button22}
+                  >
+                    <CustomButton
+                      onPress={handleButtonPress}
+                      title={isLoading ? "SAVING..." : "SAVE CHANGES"}
+                      style={appStyles.buttonText2}
+                      disabled={isLoading}
+                    />
+                  </LinearGradient>
+                )}
               </View>
             </View>
           </View>
           <View style={appStyles.homeaccountimage}>
-            <TouchableOpacity onPress={handlearrow}>
+            <TouchableOpacity onPress={home}>
               <Image style={appStyles.homeimage} source={homeimage.home} />
               <Text style={appStyles.hometext}>Home</Text>
             </TouchableOpacity>

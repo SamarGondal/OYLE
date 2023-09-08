@@ -1,14 +1,15 @@
 import { backgroundImage, tik1image, boximage } from '../../../../src/services/utilities/assets/assets'
-import React, {useState} from 'react';
-import { View, Text, Image, StatusBar, ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StatusBar, ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { appStyles } from '../../../services/utilities/appStyles';
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import { InputField } from '../../../components/EditField/EditField';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast';
 
-function VehicleInfo({navigation }) {
+function VehicleInfo({ navigation }) {
     const [isChecked, setIsChecked] = useState(false);
     const [profileData, setProfileData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ function VehicleInfo({navigation }) {
         try {
             const user = auth().currentUser;
             if (!user) {
-                Alert.alert('Authentication Error', 'User not authenticated.');
+                Toast.show('User not authenticated', Toast.SHORT,)
                 setLoading(false);
                 return;
             }
@@ -51,7 +52,7 @@ function VehicleInfo({navigation }) {
             setLoading(true);
             const user = auth().currentUser;
             if (!user) {
-                Alert.alert('Authentication Error', 'User not authenticated.');
+                Toast.show('User not authenticated', Toast.SHORT,)
                 setLoading(false);
                 return;
             }
@@ -67,12 +68,11 @@ function VehicleInfo({navigation }) {
             };
 
             await userDocRef.update(updatedData);
-
-            Alert.alert('Profile Updated', 'Your profile information has been successfully updated.');
+            Toast.show('Your Vehicle information has been successfully updated', Toast.SHORT,)
             navigation.navigate('VehicleModal');
         } catch (error) {
             console.error('Error updating profile data:', error);
-            Alert.alert('Error', 'An error occurred while updating your profile information.');
+            Toast.show('An error occurred while updating your profile information', Toast.SHORT,)
         } finally {
             setLoading(false);
         }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, StatusBar, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, ImageBackground, StatusBar, TouchableOpacity, Text } from 'react-native';
 import { appStyles } from '../../../../src/services/utilities/appStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../../../components/CustomButton/CustomButton';
@@ -7,6 +7,7 @@ import { InputField } from '../../../../src/components/EditField/EditField';
 import Header from '../../../../src/components/Header/header';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import Toast from 'react-native-simple-toast';
 import { backgroundImage, backiconimage, tikimage } from '../../../../src/services/utilities/assets/assets';
 
 const CreateAccount = ({ navigation }) => {
@@ -22,15 +23,15 @@ const CreateAccount = ({ navigation }) => {
     };
     const createUser = () => {
         if (email === "") {
-            Alert.alert("Invalid Email");
+            Toast.show('Invalid Email', Toast.SHORT,)
             return;
         }
         if (!email.endsWith('.com')) {
-            Alert.alert('Invalid Email Format');
+            Toast.show('Invalid Email Format', Toast.SHORT,)
             return;
         }
         if (!isValidEmail(email)) {
-            Alert.alert("Invalid Email Format");
+            Toast.show('Invalid Email Format', Toast.SHORT,)
             return;
         }
         auth()
@@ -38,11 +39,11 @@ const CreateAccount = ({ navigation }) => {
             .then(async (userCredential) => {
                 const user = userCredential.user;
                 if (!user) {
-                    Alert.alert('Authentication Error', 'User not authenticated.');
+                    Toast.show('User not authenticated.', Toast.SHORT,)
                     return;
                 }
                 const uid = user.uid;
-                Alert.alert('Registered Successfully');
+                Toast.show('Registered Successfully', Toast.SHORT,)
                 const userDocRef = firestore().collection('Users').doc(uid);
                 await userDocRef.set({
                     email: email,
@@ -54,12 +55,12 @@ const CreateAccount = ({ navigation }) => {
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
-                    Alert.alert('That email address is already in use!');
+                    Toast.show('That email address is already in use!', Toast.SHORT,)
                 } else if (error.code === 'auth/invalid-email') {
-                    Alert.alert('That email address is invalid!');
+                    Toast.show('That email address is invalid!', Toast.SHORT,)
                 } else {
                     console.error(error);
-                    Alert.alert('An error occurred. Please try again later.');
+                    Toast.show('An error occurred. Please try again later.', Toast.SHORT,)
                 }
             });
     };
