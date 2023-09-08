@@ -10,7 +10,7 @@ import TextInput from '../../../src/components/textInput/index';
 import { eyeimage, eyehide3image, locationimage, dropimage } from '../../../src/services/utilities/assets/assets'
 import { format } from 'date-fns';
 
-const InputField = ({ label, placeholder, style, imageSource, selectedDate, onDateChange, value, onChangeText,keyboardType,maxLength }) => {
+const InputField = ({ label, placeholder, style, imageSource, selectedDate, onDateChange, value, onChangeText, keyboardType, maxLength }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
@@ -54,7 +54,7 @@ const InputField = ({ label, placeholder, style, imageSource, selectedDate, onDa
             value={value}
             onChangeText={onChangeText}
             keyboardType={keyboardType}
-            maxLength={maxLength} 
+            maxLength={maxLength}
           />
         )}
         {imageSource && (
@@ -116,7 +116,7 @@ const Inputfield1 = ({
   };
   const handleAnotherImagePress = () => {
     setAnotherModalVisible(true);
-  }; 
+  };
   const handleAnotherImagePress1 = () => {
     setSecondModalVisible(true);
     navigation.navigate('Oyl');
@@ -129,38 +129,38 @@ const Inputfield1 = ({
   return (
     <View style={[appStyles.phoneView23, style && style]}>
       <View style={appStyles.EmailView23}>
-          <View style={[appStyles.Email25, inputStyle && inputStyle]}>
-            <Text style={appStyles.fonts23}>{inputName}</Text>
-            <TextInput
-              style={appStyles.edittext2}
-              placeholder={placeholder}
-              placeholderTextColor="#444444CC"
-              editable={editable}
-              value={value}
-              onChangeText={onChangeText}
-              onSaveLocation={onSaveLocation}
-              onSaveOil={onSaveOil}
-            />
-            <View style={appStyles.flex}>
-              <View style={appStyles.textinputView3}>
-              </View>
-              {imageSource && (
-                <TouchableOpacity onPress={handleLocationImagePress}>
-                  <Image source={imageSource} style={appStyles.calendar1} />
-                </TouchableOpacity>
-              )}
-              {anotherImageSource && (
-                <TouchableOpacity onPress={handleAnotherImagePress}>
-                  <Image source={anotherImageSource} style={appStyles.calendar1} />
-                </TouchableOpacity>
-              )}
-              {secondImageSource && (
-                <TouchableOpacity onPress={handleAnotherImagePress1}>
-                  <Image source={secondImageSource} style={appStyles.calendar1} />
-                </TouchableOpacity>
-              )}
+        <View style={[appStyles.Email25, inputStyle && inputStyle]}>
+          <Text style={appStyles.fonts23}>{inputName}</Text>
+          <TextInput
+            style={appStyles.edittext2}
+            placeholder={placeholder}
+            placeholderTextColor="#444444CC"
+            editable={editable}
+            value={value}
+            onChangeText={onChangeText}
+            onSaveLocation={onSaveLocation}
+            onSaveOil={onSaveOil}
+          />
+          <View style={appStyles.flex}>
+            <View style={appStyles.textinputView3}>
             </View>
+            {imageSource && (
+              <TouchableOpacity onPress={handleLocationImagePress}>
+                <Image source={imageSource} style={appStyles.calendar1} />
+              </TouchableOpacity>
+            )}
+            {anotherImageSource && (
+              <TouchableOpacity onPress={handleAnotherImagePress}>
+                <Image source={anotherImageSource} style={appStyles.calendar1} />
+              </TouchableOpacity>
+            )}
+            {secondImageSource && (
+              <TouchableOpacity onPress={handleAnotherImagePress1}>
+                <Image source={secondImageSource} style={appStyles.calendar1} />
+              </TouchableOpacity>
+            )}
           </View>
+        </View>
       </View>
 
       <Modal visible={isLocationModalVisible} animationType="slide" transparent={true}>
@@ -200,9 +200,9 @@ const Inputfield1 = ({
           <View style={appStyles.modal2}>
             <View style={appStyles.modalfield}>
               <Inputfield1
-               inputName="Oil type"
-               placeholder={'Please select Oil type from here \n(All Oil High-Quality Synthetic)'}
-               editable={false}
+                inputName="Oil type"
+                placeholder={'Please select Oil type from here \n(All Oil High-Quality Synthetic)'}
+                editable={false}
                 style={{ marginTop: responsiveHeight(74) }}
                 inputStyle={appStyles.oilfieldmodal}
                 secondImageSource={dropimage.drop}
@@ -211,9 +211,11 @@ const Inputfield1 = ({
               />
             </View>
             <View style={appStyles.modallargefieldview}>
-              <View style={appStyles.modallargefieldview2}>
-                <Text style={appStyles.modalfieldtext3}>Manufacturers Recommendation</Text>
-              </View>
+              <TouchableOpacity onPress={() => handleOilSave("Manufacturers Recommendation")}>
+                <View style={appStyles.modallargefieldview2}>
+                  <Text style={appStyles.modalfieldtext3}>Manufacturers Recommendation</Text>
+                </View>
+              </TouchableOpacity>
               <View style={appStyles.modallargefieldview2}>
                 <Text style={appStyles.modalfieldtext2}>-------OR-------</Text>
               </View>
@@ -222,22 +224,22 @@ const Inputfield1 = ({
                   <Text style={appStyles.modalfieldtext3}>OW-20</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() =>  handleOilSave("5W-20")}>
+              <TouchableOpacity onPress={() => handleOilSave("5W-20")}>
                 <View style={appStyles.modallargefieldview3}>
                   <Text style={appStyles.modalfieldtext3}>5W-20</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() =>  handleOilSave("5W-30")}>
+              <TouchableOpacity onPress={() => handleOilSave("5W-30")}>
                 <View style={appStyles.modallargefieldview3}>
                   <Text style={appStyles.modalfieldtext3}>5W-30</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() =>  handleOilSave("10W-30")}>
+              <TouchableOpacity onPress={() => handleOilSave("10W-30")}>
                 <View style={appStyles.modallargefieldview3}>
                   <Text style={appStyles.modalfieldtext3}>10W-30</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() =>  handleOilSave("10W-40")}>
+              <TouchableOpacity onPress={() => handleOilSave("10W-40")}>
                 <View style={appStyles.modallargefieldview4}>
                   <Text style={appStyles.modalfieldtext3}>10W-40</Text>
                 </View>
