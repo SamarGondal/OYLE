@@ -29,9 +29,6 @@ function Home({ navigation }) {
     setIsCard1Selected(false);
     setIsCard2Selected(true);
   };
-  useEffect(() => {
-  
-  }, [input])
 
   useEffect(() => {
     const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
