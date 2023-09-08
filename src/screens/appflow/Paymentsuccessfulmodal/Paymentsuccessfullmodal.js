@@ -9,8 +9,8 @@ const Paymentsuccessfullmodal = ({ navigation }) => {
         navigation.navigate('ThankYou');
     };
     const modalText = {
-        heading: 'Congratulations!',     
-        normal: 'We Will see you on',      
+        heading: 'Congratulations!',
+        normal: 'We Will see you on',
         scheduledDate: '[DATE SCHEDULED]',
     };
 
@@ -22,9 +22,9 @@ const Paymentsuccessfullmodal = ({ navigation }) => {
                 modalText={modalText}
                 buttonText="CONTINUE"
                 onButtonPress={handleButtonPress}
-                headingStyle={appStyles.congratulations} 
+                headingStyle={appStyles.congratulations}
                 normalStyle={appStyles.seeyouontext}
-                scheduledDateStyle={appStyles.dateschedule} 
+                scheduledDateStyle={appStyles.dateschedule}
             />
         </View>
     )

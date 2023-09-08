@@ -7,7 +7,12 @@ import { backgroundImage, goodluckimage1, facebookimage, instagramimage } from '
 
 const ThankYou = ({ navigation }) => {
     const handleButtonPress = () => {
-        navigation.navigate('Appnavigation', { screen: 'Home' });
+        return (
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Appnavigation', params: { screen: 'Home' } }],
+            })
+        )
     };
 
     useEffect(() => {

@@ -11,6 +11,8 @@ import Home from '../../../src/screens/appflow/Home/Home';
 import VehicleInfo from '../../../src/screens/appflow/VehicleInfo/VehicleInfo';
 import ExtraScreen from '../../screens/appflow/ExtraScreen/ExtraScreen'
 import EditProfile from '../../../src/screens/appflow/EditProfile/EditProfile';
+import ThankYou from '../../../src/screens/appflow/Thankyou/ThankYou';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,6 +37,8 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="Paymentsuccessfullmodal" component={Paymentsuccessfullmodal} options={{ headerShown: false }} />
       <HomeStack.Screen name="Account" component={Account} options={{ headerShown: false }} />
       <HomeStack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
+      <HomeStack.Screen name="ThankYou" component={ThankYou} options={{ headerShown: false }} />
+
     </HomeStack.Navigator>
   )
 };
