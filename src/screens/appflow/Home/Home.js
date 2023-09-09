@@ -258,6 +258,7 @@ function Home({ navigation }) {
             onChangeText={handleLocationChange}
             onSaveLocation={handleSaveLocation}
             style={appStyles.homefield1}
+            editable={false}
             inputStyle={appStyles.oylinputfield}
             imageSource={dotimage.dot}
           />
@@ -268,6 +269,7 @@ function Home({ navigation }) {
             inputStyle={appStyles.oylinputfield}
             anotherImageSource={dropimage.drop}
             value={oilValue}
+            editable={false}
             onSaveOil={handleSaveOil}
             onChangeText={handleOilChange}
           />
