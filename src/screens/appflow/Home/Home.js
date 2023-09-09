@@ -65,7 +65,7 @@ function Home({ navigation }) {
   const handleInputChange = (text) => {
     if (/^\d+$/.test(text)) {
       const numericValue = parseInt(text);
-      if (numericValue <= 12) {
+      if (numericValue <=12) {
         setInputValue(text);
       } else {
         Toast.show('Please enter a valid hour (1-12)', Toast.SHORT,)
@@ -79,7 +79,7 @@ function Home({ navigation }) {
   const handleInputChange2 = (text) => {
     if (/^\d+$/.test(text)) {
       const numericValue = parseInt(text);
-      if (numericValue <= 59) {
+      if (numericValue <=59) {
         setInputValue2(text);
       } else {
         Toast.show('Please enter a valid minute (0-59)', Toast.SHORT,)
