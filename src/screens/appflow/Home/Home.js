@@ -21,6 +21,7 @@ function Home({ navigation }) {
   const [oilValue, setOilValue] = useState('');
   const [isCard1Selected, setIsCard1Selected] = useState(false);
   const [isCard2Selected, setIsCard2Selected] = useState(false);
+
   const handleCard1Press = () => {
     setIsCard1Selected(true);
     setIsCard2Selected(false);
@@ -60,22 +61,37 @@ function Home({ navigation }) {
   const handleButtonPress = (button) => {
     setActiveButton(button === activeButton ? null : button);
   };
+
   const handleInputChange = (text) => {
-    if (/^\d+$/.test(text) && parseInt(text) <= 12) {
-      setInputValue(text);
+    if (/^\d+$/.test(text)) {
+      const numericValue = parseInt(text);
+      if (numericValue <= 12) {
+        setInputValue(text);
+      } else {
+        Toast.show('Please enter a valid hour (1-12)', Toast.SHORT,)
+        setInputValue('');
+      }
     } else {
-      Toast.show('Please enter a valid hour (1-12)', Toast.SHORT,)
       setInputValue('');
     }
   };
+
   const handleInputChange2 = (text) => {
-    if (/^\d+$/.test(text) && parseInt(text) <= 59) {
-      setInputValue2(text);
+    if (/^\d+$/.test(text)) {
+      const numericValue = parseInt(text);
+      if (numericValue <= 59) {
+        setInputValue2(text);
+      } else {
+        Toast.show('Please enter a valid minute (0-59)', Toast.SHORT,)
+        setInputValue2('');
+      }
     } else {
-      Toast.show('Please enter a valid minute (0-59)', Toast.SHORT,)
       setInputValue2('');
     }
   };
+  const placeholder1 = inputValue === '' ? '05' : '';
+  const placeholder2 = inputValue2 === '' ? '00' : '';
+
   const calculateDayOfWeek = (date) => {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayIndex = date.getDay();
@@ -92,6 +108,7 @@ function Home({ navigation }) {
     ];
     return monthNames[monthIndex];
   };
+
   const handleButtonPress1 = () => {
     if (areAllFieldsFilled()) {
       const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedCardIndex + 1);
@@ -193,7 +210,7 @@ function Home({ navigation }) {
           <View style={appStyles.timeview}>
             <DateCardInput
               placeholderTextColor="#444444"
-              inputPlaceholder="05"
+              inputPlaceholder={placeholder1}
               onInputChange={handleInputChange}
               keyboardType="number-pad"
               style={appStyles.timecardview}
@@ -205,7 +222,7 @@ function Home({ navigation }) {
             </View>
             <DateCardInput
               placeholderTextColor="#444444"
-              inputPlaceholder="00"
+              inputPlaceholder={placeholder2}
               onInputChange={handleInputChange2}
               keyboardType="number-pad"
               isSelected={isCard2Selected}

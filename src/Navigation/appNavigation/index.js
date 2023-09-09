@@ -45,17 +45,24 @@ const HomeStackScreen = () => {
 
 const Appnavigation = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'black',
+        inactiveTintColor: 'gray',
+        style: {
+          backgroundColor: 'white',
+        },
+      }}>
       <Tab.Screen name="Home" component={HomeStackScreen}
-      options={{
-        headerShown: false,
-        tabBarLabel: 'Home',
-        tabBarIcon: ({ color, size }) => (
-          <Image source={require('../../../src/assets/image/home.png')} style={{
-            width: size, height: size, tintColor: color
-          }} />
-        ),
-      }}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Image source={require('../../../src/assets/image/home.png')} style={{
+              width: size, height: size, tintColor: color
+            }} />
+          ),
+        }}
       />
       <Tab.Screen name="ExtraScreen" component={AccountStackScreen} options={{
         headerShown: false,
