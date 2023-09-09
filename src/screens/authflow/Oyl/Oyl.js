@@ -91,16 +91,6 @@ const Oyl = ({ navigation }) => {
                                 setInputText={setPassword}
                                 style={appStyles.Oylphoneview2}
                             />
-                            {/* <InputField
-                                label="Password"
-                                placeholder="Enter Password"
-                                style={appStyles.createfield}
-                                imageSource="eye"
-                                setInputText={setPassword}
-                                isPassword={true}
-                                onChangeText={(userPassword) => setPassword(userPassword)}
-                                value={password}
-                            /> */}
                             <View style={appStyles.Text2View2}>
                                 <Text style={appStyles.text2}>Do not have an account? </Text>
                                 <TouchableOpacity style={appStyles.touchable1} onPress={() => navigation.navigate('CreateAccount')}>
