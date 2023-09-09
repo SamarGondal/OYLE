@@ -88,7 +88,7 @@ export const appStyles = StyleSheet.create({
     },
     input1: {
         paddingLeft: responsiveWidth(3.5),
-        width: responsiveWidth(80),
+        width: '90%',
         color: color.black2,
     },
     Text2View1: {
@@ -445,7 +445,7 @@ export const appStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     calendar: {
-        marginTop: responsiveHeight(0),
+        marginTop: responsiveHeight(1),
         width: scale(16),
         height: scale(16.3),
     },
@@ -1431,7 +1431,7 @@ export const appStyles = StyleSheet.create({
         color: color.black2,
         marginLeft: responsiveWidth(2.5),
         fontSize: fontSize.h7,
-    },
+        },
     text2View: {
         height: responsiveHeight(5.5),
         width: '100%',
